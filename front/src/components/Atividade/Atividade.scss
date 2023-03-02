@@ -1,0 +1,52 @@
+.atividade {
+    width: 600px;
+    height: 150px;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 0 1em rgb(235, 235, 235);
+    margin: 10px 0 10px 0;
+  
+    img {
+      max-width: 35px;
+    }
+  
+    .atividadeHeader {
+      display: flex;
+      align-items: center;
+      border-bottom: 2px solid #e7e7ed;
+      padding: 10px 16px;
+  
+      .nomeAtividade {
+        width: 180px;
+        font-weight: bold;
+        padding: 0 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  
+    .conteudo {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding: 16px;
+  
+      span {
+        font-weight: bold;
+      }
+  
+      #status {
+        width: fit-content;
+        color: #b95000;
+        border: 2px solid #ff8f39;
+        padding: 2px 4px;
+        margin-top: 5px;
+        border-radius: 4px;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+    }
+  }
+  
