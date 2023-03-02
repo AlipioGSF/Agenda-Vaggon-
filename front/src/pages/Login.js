@@ -2,10 +2,26 @@ import { Button, Paper, TextField } from "@mui/material";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../contexts/User";
+import Axios from 'axios';
 
 export function Login() {
-  const { login, setLogin, senha, setSenha, setIsLogged } =
+  const { login, setLogin, senha, setSenha, setIsLogged, id, setId} =
     useContext(UserContext);
+
+    const handleClickButton = async () => {
+      console.log("logando...")
+       Axios.post("http://localhost:5000/logar",{
+        login: login,
+        senha:senha
+      }).then((response) => {
+        console.log(response.data);
+      });
+      await Axios.get(`http://localhost:5000/logado/${login}`)
+      .then(res => console.log(res));
+      console.log(`O id do usuario é ${id}`);
+      console.log("KKKKKKKKK");
+  }
+
 
   return (
     <div
@@ -59,11 +75,11 @@ export function Login() {
             }}
           >
             <Link
-              to="/agenda"
+              to={`/agenda/?${login}`}
               style={{ textDecoration: "none", color: "inherit" }}
               onClick={() => setIsLogged(true)}
             >
-              <Button variant="contained" color="info">
+              <Button variant="contained" color="info" onClick={handleClickButton}>
                 Login
               </Button>
             </Link>
@@ -76,4 +92,5 @@ export function Login() {
       </Paper>
     </div>
   );
+
 }

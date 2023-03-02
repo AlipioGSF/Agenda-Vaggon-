@@ -2,10 +2,22 @@ import { Button, Paper, TextField } from "@mui/material";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../contexts/User";
+import Axios from 'axios';
 
 export function Cadastro() {
   const { login, setLogin, senha, setSenha, setIsLogged } =
     useContext(UserContext);
+
+    const handleClickButton =  () => {
+        Axios.post("http://localhost:5000/cadastrar",{
+          login: login,
+          senha:senha
+        }).then((response) => {
+          console.log(response);
+        });
+        setIsLogged(true);
+       
+    }
 
   return (
     <div
@@ -65,7 +77,7 @@ export function Cadastro() {
               <Button
                 variant="contained"
                 color="info"
-                onClick={() => setIsLogged(true)}
+                onClick={handleClickButton}
               >
                 Cadastrar
               </Button>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
@@ -11,11 +11,16 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import Axios from 'axios';
+import { UserContext } from "../contexts/User";
 
 export function CriarAtividade() {
   const [open, setOpen] = useState(false);
   const [dataInicial, setDataInicial] = useState(null);
   const [dataFinal, setDataFinal] = useState(null);
+  const [nome, setNome] = useState(null);
+  const [descricao, setDescricao] = useState(null);
+  const user = useContext(UserContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -24,6 +29,18 @@ export function CriarAtividade() {
   const handleClose = () => {
     setOpen(false);
   };
+
+
+  const handleClickSubmit = () => {
+    Axios.post('http://localhost:5000/criarAtividade', {
+      nome: nome,
+      descricao: descricao,
+      dataInicio: dataInicial,
+      dataTermino: dataFinal,
+      status: "pendente",
+      userID: user.id
+    })
+  }
 
   return (
     <>
@@ -53,6 +70,9 @@ export function CriarAtividade() {
             type="text"
             fullWidth
             variant="standard"
+            onChange={(newValue) => {
+              setNome(newValue)
+            }}
           />
           <TextField
             autoFocus
@@ -62,6 +82,9 @@ export function CriarAtividade() {
             type="text"
             fullWidth
             variant="standard"
+            onChange={(newValue) => {
+              setDescricao(newValue)
+            }}
           />
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DesktopDatePicker
